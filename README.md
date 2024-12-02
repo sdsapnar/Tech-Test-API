@@ -11,7 +11,7 @@ A Node.js API project.
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-username/Tech-Test-API.git](https://github.com/sdsapnar/Tech-Test-API/new/main
+   [git clone https://github.com/your-username/Tech-Test-API.git](https://github.com/sdsapnar/Tech-Test-API/new/main](https://github.com/sdsapnar/Tech-Test-API.git)
    cd Tech-Test-API
    ```
 
