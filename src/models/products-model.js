@@ -1,4 +1,4 @@
-const { mysql, poolPromise } = require('../config/db.config');
+const { mysql, poolPromise, pool } = require('../config/db.config');
 
 exports.productList = async (request) => {
     try {
@@ -12,21 +12,38 @@ exports.productList = async (request) => {
             ...filters
         } = request;
 
-       const pool = await poolPromise;
-
         let query = `
             SELECT 
-                productId, productName, productImageName, productImageURL, brandName, 
-                description, itemCode, itemType, currency, currencyCode, saleAmount, 
-                brochureFileName, brochureFileURL, vendors, status, createdBy, created, 
-                updated, subCategoryId, categoryId, uomId, shippingMethodId, 
-                shippingTermsId, paymentTermsId, categoryName, subCategoryName, 
-                uomCode, uomDescription, organisationName, organisationId, vendorInfo 
+            productId,
+            productName,
+            description,
+            price,
+            currency,
+            category,
+            subCategory,
+            productCode,
+            productType,
+            images,
+            imagesUrl,
+            moreDetails,
+            features,
+            benefits,
+            specifications,
+            organizationId,
+            status,
+            createdAt,
+            updatedAt,
+            brandName,
+            pricingType,
+            discount,
+            stock,
+            sku,
+            availableInCountries,
+            verifiedStatus
             FROM Products 
-            WHERE 1=1
-        `;
+            WHERE 1=1`;
         const values = [];
-        
+
         Object.entries(filters).forEach(([key, value]) => {
             if (value !== undefined && value !== null) {
                 query += ` AND ?? = ?`;
@@ -60,9 +77,8 @@ exports.productList = async (request) => {
 
 exports.vendorList = async (request) => {
     try {
-        const pool = await poolPromise;
+
         const query = `SELECT VendorOrganizationId, CompanyName, OrganizationLogoUrl, OrganizationLogoName FROM VendorsOrganizations`;
-        
         const [rows] = await pool.query(query);
 
         return rows;

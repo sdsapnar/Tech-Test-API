@@ -8,19 +8,9 @@ const config = {
     port: 3306,
 };
 
-const poolPromise = mysql
-    .createPool(config)
-    .getConnection()
-    .then((connection) => {
-        console.log('Database connected successfully!');
-        connection.release();
-        return poolPromise;
-    })
-    .catch((err) => {
-        console.error('Database Connection Failed! Bad Config:', err.message);
-    });
+const pool = mysql.createPool(config);
 
 module.exports = {
     mysql,
-    poolPromise,
+    pool,
 };
